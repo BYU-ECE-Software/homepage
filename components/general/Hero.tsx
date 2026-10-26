@@ -2,16 +2,22 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
+import type { PromoHeroAction } from '@/components/general/PromoHero';
+
+export type HeroImage = string | { src: string; alt: string };
 
 interface HeroProps {
   /** A single image src string, or an array for carousel mode. */
-  images: string | string[];
+  images: HeroImage | HeroImage[];
   /** Alt text for the hero image. */
   alt?: string;
   /** Large heading overlaid on the image. */
   title?: string;
   /** Smaller subtext rendered below the title. */
   subtitle?: string;
+  /** Optional calls to action rendered beneath the subtitle. */
+  actions?: PromoHeroAction[];
   /**
    * CSS height class for the hero container.
    * Pass a Tailwind height utility, e.g. "h-[420px]" or "h-96".
@@ -34,12 +40,15 @@ export default function Hero({
   alt = '',
   title,
   subtitle,
+  actions = [],
   heightClass = 'h-[420px]',
   autoPlay = true,
   interval = 5000,
   overlayClass = 'bg-black/35',
 }: HeroProps) {
-  const imageList = Array.isArray(images) ? images : [images];
+  const imageList = (Array.isArray(images) ? images : [images]).map((image, index) =>
+    typeof image === 'string' ? { src: image, alt: index === 0 ? alt : '' } : image,
+  );
   const isCarousel = imageList.length > 1;
 
   const [activeIndex, setActiveIndex] = useState(0);
@@ -74,17 +83,17 @@ export default function Hero({
       aria-label={title ?? 'Hero banner'}
     >
       {/* Slides */}
-      {imageList.map((src, i) => (
+      {imageList.map((image, i) => (
         <div
-          key={src}
+          key={image.src}
           aria-hidden={i !== activeIndex}
           className={`absolute inset-0 transition-opacity duration-500 ${
             i === activeIndex && !fading ? 'opacity-100' : 'opacity-0'
           }`}
         >
           <Image
-            src={src}
-            alt={i === 0 ? alt : ''}
+            src={image.src}
+            alt={image.alt}
             fill
             priority={i === 0}
             className="object-cover object-center"
@@ -97,15 +106,48 @@ export default function Hero({
       {(title || subtitle) && <div className={`absolute inset-0 z-10 ${overlayClass}`} />}
 
       {/* Text */}
-      {(title || subtitle) && (
-        <div className="absolute bottom-10 left-10 z-20 max-w-[60%]">
+      {(title || subtitle || actions.length > 0) && (
+        <div
+          className={
+            actions.length > 0
+              ? 'absolute right-14 bottom-16 left-14 z-20 max-w-3xl sm:right-auto sm:bottom-16 sm:left-10 sm:max-w-[min(70%,48rem)]'
+              : 'absolute bottom-10 left-10 z-20 max-w-[60%]'
+          }
+        >
           {title && (
-            <h1 className="mb-1 text-3xl leading-tight font-bold text-white drop-shadow-md">
+            <h1
+              className={`mb-1 text-3xl leading-tight font-bold text-white drop-shadow-md ${actions.length > 0 ? 'sm:text-5xl' : ''}`}
+            >
               {title}
             </h1>
           )}
           {subtitle && (
             <p className="text-base leading-relaxed text-white/90 drop-shadow">{subtitle}</p>
+          )}
+          {actions.length > 0 && (
+            <div className="mt-5 flex flex-wrap gap-3">
+              {actions.map((action) => {
+                const classes =
+                  action.variant === 'secondary'
+                    ? 'rounded-md border border-white/70 px-4 py-2.5 text-sm font-semibold text-white hover:bg-white/10 sm:px-5 sm:py-3 sm:text-base'
+                    : 'rounded-md bg-white px-4 py-2.5 text-sm font-semibold text-byu-navy hover:bg-blue-50 sm:px-5 sm:py-3 sm:text-base';
+                return action.href.startsWith('/') ? (
+                  <Link key={action.label} href={action.href} className={classes}>
+                    {action.label}
+                  </Link>
+                ) : (
+                  <a
+                    key={action.label}
+                    href={action.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={classes}
+                  >
+                    {action.label}
+                  </a>
+                );
+              })}
+            </div>
           )}
         </div>
       )}

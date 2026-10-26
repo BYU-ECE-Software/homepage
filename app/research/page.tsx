@@ -35,8 +35,8 @@ const heroImages: string[] = [
 
 const researchAreas: ResearchArea[] = [
   {
-    image: '/research/BlockY.png',
-    imageAlt: 'Close-up of a circuit board with a magnifying glass',
+    image: '/homepage/wirebonding-2.webp',
+    imageAlt: 'Wire bonding equipment works on a circuit board.',
     title: 'Analog Circuits',
     titleHref: 'https://microcl.groups.et.byu.net/',
     people: [
@@ -113,8 +113,8 @@ const researchAreas: ResearchArea[] = [
     ],
   },
   {
-    image: '/research/BlockY.png',
-    imageAlt: 'Microfluidics lab equipment',
+    image: '/homepage/lab-on-a-chip-2.webp',
+    imageAlt: 'A researcher in cleanroom clothing examines a fabricated chip.',
     title: 'Microfluidics and MEMS',
     people: [
       { label: 'Aaron Hawkins', href: '/people/faculty/aaron-hawkins' },

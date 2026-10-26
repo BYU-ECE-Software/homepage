@@ -1,5 +1,5 @@
 import { FaChalkboardTeacher, FaMapMarkedAlt, FaFlask, FaHandsHelping } from 'react-icons/fa';
-import PromoHero from '@/components/general/PromoHero';
+import Hero from '@/components/general/Hero';
 import QuickLinksGrid, { type QuickLinkItem } from '@/components/general/QuickLinksGrid';
 import NewsGrid, { type NewsItem } from '@/components/general/NewsGrid';
 import PromoCard, { type PromoItem } from '@/components/general/PromoCard';
@@ -65,6 +65,8 @@ const promos: PromoItem[] = [
       'Work with faculty and students on consequential problems across hardware, computing, sensing, communications, robotics, and security.',
     href: '/research',
     linkLabel: 'Explore research',
+    image: '/homepage/cleanroom-3.webp',
+    imageAlt: 'ECE researcher examines a small device in a cleanroom lab.',
   },
   {
     title: 'Find a student organization',
@@ -72,6 +74,8 @@ const promos: PromoItem[] = [
       'Build friendships and technical experience through clubs, competition teams, professional organizations, and service.',
     href: '/student-organizations',
     linkLabel: 'Find opportunities',
+    image: '/homepage/robotsoccer-1.webp',
+    imageAlt: 'Students work together on a small robot project.',
   },
   {
     title: 'Connect learning to your future',
@@ -85,9 +89,26 @@ const promos: PromoItem[] = [
 export default function Home() {
   return (
     <>
-      <PromoHero
+      <Hero
+        images={[
+          {
+            src: '/homepage/chip-camp.webp',
+            alt: 'Students gather outdoors during an ECE chip camp activity.',
+          },
+          {
+            src: '/homepage/mars-rover-2.webp',
+            alt: 'Students build and test a rover in an engineering lab.',
+          },
+          {
+            src: '/homepage/spot-robot.webp',
+            alt: 'A four-legged robot in a campus engineering space.',
+          },
+        ]}
         title="Imagine. Create. Contribute."
-        description="Learn to solve consequential problems through engineering, computing, cybersecurity, and research at Brigham Young University."
+        subtitle="Learn to solve consequential problems through engineering, computing, cybersecurity, and research at Brigham Young University."
+        heightClass="h-[440px] sm:h-[560px]"
+        interval={6000}
+        overlayClass="bg-byu-navy/55"
         actions={[
           { label: 'Explore undergraduate programs', href: '/undergraduate/prospective-students' },
           { label: 'Explore graduate programs', href: '/graduate', variant: 'secondary' },
