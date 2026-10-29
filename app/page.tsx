@@ -8,6 +8,7 @@ import TileCard, { type TileItem } from '@/components/general/TileCard';
 import { majors } from '@/data/undergraduate/majors';
 import { minors } from '@/data/undergraduate/minors';
 import { stories } from '@/data/news';
+import { formatNewsDate } from '@/data/news/formatNewsDate';
 
 // Placeholder photography until each program has its own dedicated image.
 const placeholderImages = [
@@ -53,7 +54,7 @@ const degrees: TileItem[] = degreeEntries.map((entry, i) => ({
 const news: NewsItem[] = stories.slice(0, 3).map((story) => ({
   title: story.title,
   description: story.description,
-  date: story.date,
+  date: formatNewsDate(story.date),
   author: story.author,
   href: `/news-and-events/news/${story.slug}`,
 }));

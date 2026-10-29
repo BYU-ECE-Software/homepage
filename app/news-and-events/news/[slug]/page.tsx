@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import ArticleLayout from '@/components/general/ArticleLayout';
 import { stories } from '@/data/news';
+import { formatNewsDate } from '@/data/news/formatNewsDate';
 
 interface Props {
   params: Promise<{
@@ -39,7 +40,7 @@ export default async function NewsArticlePage({ params }: Props) {
       title={story.title}
       description={story.description}
       author={story.author}
-      published={story.date}
+      published={formatNewsDate(story.date)}
       content={story.content}
     />
   );

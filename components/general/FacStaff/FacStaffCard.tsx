@@ -7,6 +7,7 @@ export interface FacStaffMember {
   email?: string;
   phone?: string;
   office?: string;
+  advisor?: string;
   /** Path relative to /public, e.g. "/faculty/beard.jpg" */
   image?: string;
   /** Optional URL — wraps photo + name in a Next.js Link */
@@ -19,6 +20,7 @@ export default function FacStaffCard({
   email,
   phone,
   office,
+  advisor,
   image,
   link,
 }: FacStaffMember) {
@@ -80,6 +82,7 @@ export default function FacStaffCard({
         )}
         {phone && <span className="text-[0.76rem] text-gray-600">{phone}</span>}
         {office && <span className="text-[0.76rem] text-gray-600">{office}</span>}
+        {advisor && <span className="text-[0.76rem] text-gray-600">Advisor: {advisor}</span>}
       </div>
     </div>
   );

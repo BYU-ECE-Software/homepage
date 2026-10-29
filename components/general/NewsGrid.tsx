@@ -8,19 +8,28 @@ interface NewsGridProps {
   items: NewsItem[];
   featuredFirst?: boolean;
   columns?: 2 | 3;
+  carousel?: boolean;
 }
 
-export default function NewsGrid({ items, featuredFirst = false, columns = 3 }: NewsGridProps) {
+export default function NewsGrid({
+  items,
+  featuredFirst = false,
+  columns = 3,
+  carousel = true,
+}: NewsGridProps) {
   const [page, setPage] = useState(0);
 
   const [featured, ...rest] = items;
   const gridItems = featuredFirst ? rest : items;
   const pageSize = columns === 2 ? 2 : 3;
-  const pageCount = Math.ceil(gridItems.length / pageSize);
+  const pageCount = carousel ? Math.ceil(gridItems.length / pageSize) : 1;
   const currentPage = Math.min(page, Math.max(pageCount - 1, 0));
   const visibleItems = useMemo(
-    () => gridItems.slice(currentPage * pageSize, currentPage * pageSize + pageSize),
-    [gridItems, currentPage, pageSize],
+    () =>
+      carousel
+        ? gridItems.slice(currentPage * pageSize, currentPage * pageSize + pageSize)
+        : gridItems,
+    [carousel, gridItems, currentPage, pageSize],
   );
 
   if (items.length === 0) {
