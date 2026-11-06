@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import Image from 'next/image';
 import RichText from './RichText';
 
 interface ArticleLayoutProps {
@@ -8,6 +9,9 @@ interface ArticleLayoutProps {
   description?: string;
   author?: string;
   published?: string;
+  image?: string;
+  imageAlt?: string;
+  videoUrl?: string;
   children?: ReactNode;
 }
 
@@ -18,6 +22,9 @@ export default function ArticleLayout({
   description,
   author,
   published,
+  image,
+  imageAlt,
+  videoUrl,
   children,
 }: ArticleLayoutProps) {
   return (
@@ -40,6 +47,34 @@ export default function ArticleLayout({
           )}
         </div>
       </header>
+      {image && (
+        <div className="mx-auto mt-10 w-full max-w-5xl px-6">
+          <div className="relative aspect-[16/9] overflow-hidden rounded-lg bg-slate-100">
+            <Image
+              src={image}
+              alt={imageAlt ?? ''}
+              fill
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 1024px"
+              priority
+            />
+          </div>
+        </div>
+      )}
+      {videoUrl && (
+        <div className="mx-auto mt-10 w-full max-w-5xl px-6">
+          <div className="aspect-video overflow-hidden rounded-lg bg-slate-950">
+            <iframe
+              src={videoUrl}
+              title={`${title} video`}
+              className="h-full w-full"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+            />
+          </div>
+        </div>
+      )}
       <div className="px-6 py-12">
         <RichText content={content} className="mx-auto" />
         {children && <div className="mx-auto mt-10 max-w-3xl">{children}</div>}

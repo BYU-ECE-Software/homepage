@@ -41,6 +41,9 @@ export default async function NewsArticlePage({ params }: Props) {
       description={story.description}
       author={story.author}
       published={formatNewsDate(story.date)}
+      image={story.image}
+      imageAlt={story.imageAlt}
+      videoUrl={story.videoUrl}
       content={story.content}
     />
   );

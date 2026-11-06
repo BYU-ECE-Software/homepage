@@ -8,6 +8,7 @@ export interface NewsStory {
   author?: string;
   image?: string;
   imageAlt?: string;
+  videoUrl?: string;
   /** Full article body in Markdown. */
   content: string;
 }

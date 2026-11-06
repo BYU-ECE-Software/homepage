@@ -56,6 +56,8 @@ const news: NewsItem[] = stories.slice(0, 3).map((story) => ({
   description: story.description,
   date: formatNewsDate(story.date),
   author: story.author,
+  image: story.image,
+  imageAlt: story.imageAlt,
   href: `/news-and-events/news/${story.slug}`,
 }));
 
