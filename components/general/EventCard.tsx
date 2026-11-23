@@ -3,6 +3,8 @@ import Link from 'next/link';
 export interface EventItem {
   title: string;
   date: string;
+  /** Local calendar date in YYYY-MM-DD format, when available. */
+  dateKey?: string;
   time?: string;
   location?: string;
   description?: string;

@@ -1,4 +1,4 @@
-import EventGrid from '@/components/general/EventGrid';
+import EventViewToggle from '@/components/general/EventViewToggle';
 import { PageIntro, CallToAction } from '@/components/general/ContentPage';
 import { events } from '@/data/events';
 
@@ -14,7 +14,7 @@ export default function ScheduleOfEvents() {
       />
       <section className="px-6 py-12">
         <div className="mx-auto max-w-5xl">
-          <EventGrid items={events} />
+          <EventViewToggle items={events} />
           <p className="mt-8 whitespace-nowrap text-center leading-7 text-slate-600">
             This page highlights major department events. Newsletters may include additional
             opportunities intended for particular programs or student groups.

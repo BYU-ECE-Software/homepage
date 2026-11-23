@@ -12,6 +12,7 @@ interface ArticleLayoutProps {
   image?: string;
   imageAlt?: string;
   videoUrl?: string;
+  sourceUrl?: string;
   children?: ReactNode;
 }
 
@@ -25,6 +26,7 @@ export default function ArticleLayout({
   image,
   imageAlt,
   videoUrl,
+  sourceUrl,
   children,
 }: ArticleLayoutProps) {
   return (
@@ -77,6 +79,18 @@ export default function ArticleLayout({
       )}
       <div className="px-6 py-12">
         <RichText content={content} className="mx-auto" />
+        {sourceUrl && (
+          <p className="mx-auto mt-8 max-w-3xl text-sm text-slate-600">
+            <a
+              href={sourceUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-byu-royal font-medium underline underline-offset-2"
+            >
+              Read the original story
+            </a>
+          </p>
+        )}
         {children && <div className="mx-auto mt-10 max-w-3xl">{children}</div>}
       </div>
     </article>

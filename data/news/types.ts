@@ -9,6 +9,8 @@ export interface NewsStory {
   image?: string;
   imageAlt?: string;
   videoUrl?: string;
-  /** Full article body in Markdown. */
+  /** Canonical public article URL for attribution. */
+  sourceUrl?: string;
+  /** Article text or a concise summary in Markdown. */
   content: string;
 }

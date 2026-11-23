@@ -44,6 +44,7 @@ export default async function NewsArticlePage({ params }: Props) {
       image={story.image}
       imageAlt={story.imageAlt}
       videoUrl={story.videoUrl}
+      sourceUrl={story.sourceUrl}
       content={story.content}
     />
   );

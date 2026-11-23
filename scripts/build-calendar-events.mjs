@@ -82,6 +82,13 @@ function formatDate(date) {
   return date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 }
 
+function formatDateKey(date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
 function formatTime(date, isAllDay) {
   if (isAllDay) return undefined;
   return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
@@ -103,6 +110,7 @@ function toEventItem(block) {
   return {
     title: unescapeText(summary),
     date: formatDate(start),
+    dateKey: formatDateKey(start),
     time: formatTime(start, isAllDay),
     location: location ? unescapeText(location) : undefined,
     description: description ? unescapeText(description) : undefined,
